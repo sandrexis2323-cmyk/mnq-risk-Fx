@@ -1,7 +1,10 @@
 var CACHE = 'mnq-risk-v1';
 var FILES = [
-  '/index.html',
-  '/manifest.json'
+  '/mnq-risk-Fx/',
+  '/mnq-risk-Fx/index.html',
+  '/mnq-risk-Fx/manifest.json',
+  '/mnq-risk-Fx/icono-192.png',
+  '/mnq-risk-Fx/icono-512.png'
 ];
 
 self.addEventListener('install', function(e) {
@@ -27,7 +30,7 @@ self.addEventListener('fetch', function(e) {
   e.respondWith(
     caches.match(e.request).then(function(cached) {
       return cached || fetch(e.request).catch(function() {
-        return caches.match('/index.html');
+        return caches.match('/mnq-risk-Fx/index.html');
       });
     })
   );
