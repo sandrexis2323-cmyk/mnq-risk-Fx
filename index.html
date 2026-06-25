@@ -7,8 +7,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="MNQ Risk">
-<link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="manifest" href="/mnq-risk-Fx/manifest.json">
+<link rel="apple-touch-icon" href="/mnq-risk-Fx/icono-192.png">
 <title>MNQ Risk Calculator</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -49,8 +49,7 @@
   .icon-ok { color: #2d7a3a; font-style: normal; flex-shrink: 0; }
   .icon-no { color: #c0392b; font-style: normal; flex-shrink: 0; }
   .warn-box { background: #fff8e1; border-left: 3px solid #f59e0b; border-radius: 0 8px 8px 0; padding: 10px 14px; font-size: 13px; color: #92400e; margin-top: 12px; display: none; line-height: 1.5; }
-  .install-banner { background: #1a1a1a; color: #fff; border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-  .install-banner p { font-size: 13px; line-height: 1.4; }
+  .install-banner { background: #1a1a1a; color: #fff; border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1rem; display: none; align-items: center; justify-content: space-between; gap: 12px; }
   .install-btn { background: #fff; color: #1a1a1a; border: none; border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
   .footer { text-align: center; font-size: 12px; color: #bbb; margin-top: 0.5rem; }
 </style>
@@ -58,7 +57,7 @@
 <body>
 <div class="container">
 
-  <div class="install-banner" id="install-banner" style="display:none">
+  <div class="install-banner" id="install-banner">
     <p>Instala la app para acceder sin navegador</p>
     <button class="install-btn" id="install-btn">Instalar</button>
   </div>
@@ -180,13 +179,10 @@ window.addEventListener('DOMContentLoaded', function() {
     var slTicks = parseInt(g('sl-ticks').value) || 40;
     var profitAcc = parseFloat(g('profit-acc').value) || 0;
     var contractsManual = Math.max(1, Math.min(20, parseInt(g('contracts-manual').value) || 1));
-
     var tickValue = 0.5;
     var riskTarget = capital * riskPct / 100;
     var suggested = Math.min(20, Math.max(1, Math.floor(riskTarget / (slTicks * tickValue))));
-
     g('contracts-suggested').textContent = suggested;
-
     var badge = g('contracts-badge');
     if (contractsManual > 20) {
       badge.textContent = 'límite máx.';
@@ -198,7 +194,6 @@ window.addEventListener('DOMContentLoaded', function() {
       badge.textContent = 'OK';
       badge.className = 'badge badge-ok';
     }
-
     var realRisk = contractsManual * slTicks * tickValue;
     var slPts = (slTicks * 0.25).toFixed(2);
     var tpTicks = slTicks * 3;
@@ -207,7 +202,6 @@ window.addEventListener('DOMContentLoaded', function() {
     var ddDollar = Math.round(capital * 0.02);
     var maxTrades = Math.max(1, Math.floor(ddDollar / realRisk));
     var consistLimit = profitAcc > 0 ? Math.round(profitAcc * 0.5) : 0;
-
     g('risk-target').textContent = fmt(riskTarget) + '$';
     g('risk-real').textContent = fmt(realRisk) + '$';
     g('sl-pts').textContent = slPts + ' pts';
@@ -219,7 +213,6 @@ window.addEventListener('DOMContentLoaded', function() {
     g('dd-dollar').textContent = fmt(ddDollar) + '$';
     g('dd-trades').textContent = maxTrades + ' pérdida' + (maxTrades !== 1 ? 's' : '');
     g('rule-losses').textContent = 'Tras ' + maxTrades + ' pérdida' + (maxTrades !== 1 ? 's' : '') + ' en el día: cerrar plataforma.';
-
     if (profitAcc > 0) {
       g('consist-limit').textContent = fmt(consistLimit) + '$';
       g('warn-consist').style.display = 'block';
@@ -242,7 +235,7 @@ window.addEventListener('DOMContentLoaded', function() {
     calc();
   });
 
-  ['capital', 'risk-pct', 'contracts-manual', 'profit-acc'].forEach(function(id) {
+  ['capital','risk-pct','contracts-manual','profit-acc'].forEach(function(id) {
     g(id).addEventListener('input', calc);
   });
 
@@ -274,7 +267,7 @@ window.addEventListener('DOMContentLoaded', function() {
   });
 
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js');
+    navigator.serviceWorker.register('/mnq-risk-Fx/sw.js');
   }
 
   calc();
