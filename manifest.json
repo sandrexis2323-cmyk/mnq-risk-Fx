@@ -2,20 +2,20 @@
   "name": "MNQ Risk Calculator",
   "short_name": "MNQ Risk",
   "description": "Calculadora de riesgo y contratos para trading MNQ/MES",
-  "start_url": "/index.html",
+  "start_url": "/mnq-risk-Fx/",
   "display": "standalone",
   "background_color": "#f5f5f0",
   "theme_color": "#1a1a1a",
   "orientation": "portrait",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "icono-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "icon-512.png",
+      "src": "icono-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
